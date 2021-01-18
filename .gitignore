@@ -1,0 +1,8 @@
+
+node_modules/
+
+.env.local
+
+dist/
+
+yarn-error.log

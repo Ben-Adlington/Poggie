@@ -1,0 +1,20 @@
+{
+  "name": "poggie",
+  "version": "1.0.0",
+  "description": "A Discord bot which posts the daily PogChamp",
+  "main": "src/index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development ts-node-dev src/index.ts",
+    "start": "cross-env NODE_ENV=production ts-node-dev src/index.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.21",
+    "cross-env": "^7.0.3",
+    "discord.js": "^12.5.1",
+    "ts-node": "^9.1.1",
+    "ts-node-dev": "^1.1.1",
+    "twitch-js": "^2.0.0-beta.42",
+    "typescript": "^4.1.3"
+  }
+}
