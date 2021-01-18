@@ -85,7 +85,7 @@ class Poggie {
       }
 
       case '!pogchamp': {
-        const pogChampResponse = await this.getPogChamp();
+        const pogChampResponse = await this.getPogChamp("Today's PogChamp");
         await message.channel.send(pogChampResponse);
         break;
       }
@@ -101,7 +101,7 @@ class Poggie {
   /**
    * Gets pogchamp as a formatted message
    */
-  private getPogChamp = async (title?: string): Promise<Discord.MessageEmbed> => {
+  private getPogChamp = async (title: string): Promise<Discord.MessageEmbed> => {
     const latestPogchampId = await this.poller.getPogChampId();
 
     if (latestPogchampId === -1) {
@@ -109,7 +109,7 @@ class Poggie {
     }
 
     const url = Poggie.Url.replace(Poggie.UrlToken, latestPogchampId.toString());
-    return new Discord.MessageEmbed().setImage(url).setTitle(title ? title : "Today's PogChamp");
+    return new Discord.MessageEmbed().setImage(url).setTitle(title);
   };
 
   /**
