@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 // Configure dotenv
 dotenv.config();
 
-// Create the new
+// Create the bot
 const poggie = new Poggie();
 poggie.login();
 poggie.bindEvents();
