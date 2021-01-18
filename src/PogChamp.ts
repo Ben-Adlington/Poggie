@@ -5,7 +5,7 @@ class PogChamp {
   private static Url: string = `https://static-cdn.jtvnw.net/emoticons/v2/[X]/default/dark/3.0`;
   private static UrlToken: string = '[X]';
   private static WhoopsUrl: string = 'https://static-cdn.jtvnw.net/emoticons/v2/33/default/dark/1.0';
-  private static Token: string = process.env.DISCORD_TOKEN || '';
+  private token: string = process.env.DISCORD_TOKEN || '';
   private client: Discord.Client;
   private twitchBot: PogChampTwitchBot;
   private isDev: boolean = process.env.NODE_ENV !== 'production';
@@ -27,7 +27,7 @@ class PogChamp {
       console.log(`Logged in as ${this.client.user?.tag}`);
     });
 
-    this.client.login(PogChamp.Token);
+    this.client.login(this.token);
   }
 
   /**
