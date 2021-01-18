@@ -1,18 +1,18 @@
 import TwitchJs, { ApiVersions } from 'twitch-js';
-import fs from 'fs';
+import CacheHelper, { CacheKey } from './cache/CacheHelper';
 
-interface EmoteHistoryItem {
+export interface EmoteHistoryItem {
   emoteId: number;
   createdAt: number;
 }
 
-class PogChampTwitchBot {
+class TwitchPoller {
   private static Username = 'Nyohshi';
   private twitchJs: TwitchJs;
 
   constructor() {
     this.twitchJs = new TwitchJs({
-      username: PogChampTwitchBot.Username,
+      username: TwitchPoller.Username,
       token: process.env.API_KRAKEN_TOKEN || '',
     });
   }
@@ -32,15 +32,10 @@ class PogChampTwitchBot {
       // Find it in the results
       const pogChampEmote = emotesResponse.emoticonSets[0].filter((x: any) => x.code === 'PogChamp')[0];
 
-      console.log(pogChampEmote);
+      let history = CacheHelper.get<EmoteHistoryItem[]>(CacheKey.EMOTE_HISTORY);
 
-      // Get the cache
-      const data = fs.readFileSync('src/cache/index.json').toString();
-      let history: EmoteHistoryItem[] = [];
-
-      // Parse it
-      if (data.length > 0) {
-        history = JSON.parse(data);
+      if (history === undefined) {
+        history = [];
       }
 
       // Push in the latest emote if it doesn't exist
@@ -49,7 +44,7 @@ class PogChampTwitchBot {
       }
 
       // Update the json file
-      fs.writeFileSync('src/cache/index.json', JSON.stringify(history));
+      CacheHelper.set(CacheKey.EMOTE_HISTORY, history);
 
       // Return it
       return pogChampEmote.id;
@@ -63,13 +58,11 @@ class PogChampTwitchBot {
    */
   public async getPogChamps(): Promise<EmoteHistoryItem[]> {
     try {
-      // Get ids from the cache
-      const data = fs.readFileSync('src/cache/index.json').toString();
-      let history: EmoteHistoryItem[] = [];
+      const history = CacheHelper.get<EmoteHistoryItem[]>(CacheKey.EMOTE_HISTORY);
 
       // Parse it
-      if (data.length > 0) {
-        history = JSON.parse(data);
+      if (!history) {
+        return [];
       }
 
       // Return it
@@ -80,4 +73,4 @@ class PogChampTwitchBot {
   }
 }
 
-export default PogChampTwitchBot;
+export default TwitchPoller;

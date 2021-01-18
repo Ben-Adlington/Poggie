@@ -1,10 +1,11 @@
-import PogChamp from './PogChamp';
-import PogChampTwitchBot from './PogChampTwitchBot';
+import Poggie from './Poggie';
 import dotenv from 'dotenv';
 
+// Configure dotenv
 dotenv.config();
 
-const bot = new PogChamp();
-bot.login();
-bot.bindEvents();
-bot.bindReminder();
+// Create the new
+const poggie = new Poggie();
+poggie.login();
+poggie.bindEvents();
+poggie.bindReminder();
