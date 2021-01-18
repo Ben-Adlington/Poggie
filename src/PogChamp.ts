@@ -5,7 +5,7 @@ class PogChamp {
   private static Url: string = `https://static-cdn.jtvnw.net/emoticons/v2/[X]/default/dark/3.0`;
   private static UrlToken: string = '[X]';
   private static WhoopsUrl: string = 'https://static-cdn.jtvnw.net/emoticons/v2/33/default/dark/1.0';
-  private static Token: string = 'ODAwMTM3NDE3NDk1MDE5NTMw.YANwCg.0eGvhRWIRunIYfL7KKrV2RFD5Ak';
+  private static Token: string = process.env.DISCORD_TOKEN || '';
   private client: Discord.Client;
   private twitchBot: PogChampTwitchBot;
   private isDev: boolean = process.env.NODE_ENV !== 'production';
