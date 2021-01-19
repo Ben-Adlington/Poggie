@@ -1,6 +1,7 @@
 import Discord, { Channel, MessageEmbed, MessageOptions, TextChannel } from 'discord.js';
-import CacheHelper, { CacheKey } from './cache/CacheHelper';
-import TwitchPoller, { EmoteHistoryItem } from './TwitchPoller';
+import TwitchService, { EmoteHistoryItem, TwitchEmoteNames } from './services/TwitchService';
+import EmoteRespository from './respositories/EmoteRepository';
+import EmoteRepository from './respositories/EmoteRepository';
 
 class Poggie {
   private static Url: string = `https://static-cdn.jtvnw.net/emoticons/v2/[X]/default/dark/3.0`;
@@ -8,14 +9,12 @@ class Poggie {
   private static WhoopsUrl: string = 'https://static-cdn.jtvnw.net/emoticons/v2/33/default/dark/1.0';
   private token: string = process.env.DISCORD_TOKEN || '';
   private client: Discord.Client;
-  private poller: TwitchPoller;
   private isDev: boolean = process.env.NODE_ENV !== 'production';
   private reminderChannelId: string = '800370191279325185';
   private testChannelId: string = '800140034627338280';
 
   constructor() {
     this.client = new Discord.Client();
-    this.poller = new TwitchPoller();
   }
 
   /**
@@ -41,10 +40,10 @@ class Poggie {
    */
   public bindReminder = () => {
     setInterval(async () => {
-      const pogChampId = await this.poller.getPogChampId();
-      const lastPogChampId = CacheHelper.get<Number>(CacheKey.LAST_EMOTE) || -1;
+      const latestPogChampId = await TwitchService.getEmoteIdByName(TwitchEmoteNames.PogChamp);
+      const lastPogChamp = await EmoteRepository.getLatestPogChamp();
 
-      if (lastPogChampId !== pogChampId && pogChampId !== -1) {
+      if (lastPogChamp && lastPogChamp.twitchEmoteId !== latestPogChampId) {
         // Get the discord channel
         const channel = (await this.client.channels.fetch(
           process.env.NODE_ENV === 'production' ? this.reminderChannelId : this.testChannelId
@@ -56,8 +55,8 @@ class Poggie {
         // Send it in discord channel
         channel.send(message);
 
-        // Update the last PogChamp id in the cache
-        CacheHelper.set(CacheKey.LAST_EMOTE, pogChampId);
+        // Add the new pogchamp into the DB
+        EmoteRepository.insert(latestPogChampId);
       }
     }, 10000);
   };
@@ -100,7 +99,7 @@ class Poggie {
    * Gets pogchamp as a formatted message
    */
   private getPogChamp = async (title: string): Promise<Discord.MessageEmbed> => {
-    const latestPogchampId = await this.poller.getPogChampId();
+    const latestPogchampId = await TwitchService.getEmoteIdByName(TwitchEmoteNames.PogChamp);
 
     if (latestPogchampId === -1) {
       return new Discord.MessageEmbed().setImage(Poggie.WhoopsUrl).setTitle('Whops! something went wrong');
@@ -114,13 +113,13 @@ class Poggie {
    * Gets pogchamp as a formatted message
    */
   private getPogChamps = async (): Promise<Discord.MessageEmbed> => {
-    const history = await this.poller.getPogChamps();
+    const history = await EmoteRespository.getPogChamps();
 
     let message = '';
 
     for (const historyItem of history) {
       const createdAt = new Date(historyItem.createdAt);
-      message += `${createdAt.toDateString()} - ${Poggie.Url.replace(Poggie.UrlToken, historyItem.emoteId.toString())} \n`;
+      message += `${createdAt.toDateString()} - ${Poggie.Url.replace(Poggie.UrlToken, historyItem.twitchEmoteId.toString())} \n`;
     }
 
     return new Discord.MessageEmbed().setTitle('Previous PogChamps').setDescription(message);

@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import Poggie from './Poggie';
 import dotenv from 'dotenv';
 
