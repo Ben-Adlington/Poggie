@@ -42,12 +42,7 @@ class Poggie {
   public bindReminder = () => {
     setInterval(async () => {
       const pogChampId = await this.poller.getPogChampId();
-      const history = CacheHelper.get<EmoteHistoryItem[]>(CacheKey.EMOTE_HISTORY);
-      let lastPogChampId = -1;
-
-      if (history !== undefined) {
-        lastPogChampId = history[history.length - 1].emoteId;
-      }
+      const lastPogChampId = CacheHelper.get<Number>(CacheKey.LAST_EMOTE) || -1;
 
       if (lastPogChampId !== pogChampId && pogChampId !== -1) {
         // Get the discord channel
@@ -60,6 +55,9 @@ class Poggie {
 
         // Send it in discord channel
         channel.send(message);
+
+        // Update the last PogChamp id in the cache
+        CacheHelper.set(CacheKey.LAST_EMOTE, pogChampId);
       }
     }, 10000);
   };

@@ -2,6 +2,7 @@ import fs from 'fs';
 
 export enum CacheKey {
   EMOTE_HISTORY = 'EMOTE_HISTORY',
+  LAST_EMOTE = 'LAST_EMOTE',
 }
 
 class CacheHelper {

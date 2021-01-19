@@ -31,20 +31,25 @@ class TwitchPoller {
 
       // Find it in the results
       const pogChampEmote = emotesResponse.emoticonSets[0].filter((x: any) => x.code === 'PogChamp')[0];
-
       let history = CacheHelper.get<EmoteHistoryItem[]>(CacheKey.EMOTE_HISTORY);
 
+      // Populate the cache with an empty array if it does't exist
       if (history === undefined) {
         history = [];
+
+        // Update the json file
+        CacheHelper.set(CacheKey.EMOTE_HISTORY, history);
+
+        return -1;
       }
 
       // Push in the latest emote if it doesn't exist
       if (history.findIndex((x) => x.emoteId === pogChampEmote.id) === -1) {
         history.push({ emoteId: pogChampEmote.id, createdAt: new Date().getTime() });
-      }
 
-      // Update the json file
-      CacheHelper.set(CacheKey.EMOTE_HISTORY, history);
+        // Update the json file
+        CacheHelper.set(CacheKey.EMOTE_HISTORY, history);
+      }
 
       // Return it
       return pogChampEmote.id;
