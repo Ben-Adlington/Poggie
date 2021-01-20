@@ -42,7 +42,11 @@ class Poggie {
       const latestPogChampId = await TwitchService.getEmoteIdByName(TwitchEmoteNames.PogChamp);
       const lastPogChamp = await EmoteRepository.getLatestPogChamp();
 
-      if (lastPogChamp && lastPogChamp.twitchEmoteId !== latestPogChampId) {
+      if (latestPogChampId === -1 || lastPogChamp === null) {
+        return;
+      }
+
+      if (lastPogChamp === undefined || lastPogChamp.twitchEmoteId !== latestPogChampId) {
         // Get the discord channel
         const channel = (await this.client.channels.fetch(
           process.env.NODE_ENV === 'production' ? this.reminderChannelId : this.testChannelId
@@ -112,13 +116,14 @@ class Poggie {
    * Gets pogchamp as a formatted message
    */
   private getPogChamps = async (): Promise<Discord.MessageEmbed> => {
-    const history = await EmoteRepository.getPogChamps();
+    const emotes = await EmoteRepository.getPogChamps();
 
     let message = '';
 
-    for (const historyItem of history) {
-      const createdAt = new Date(historyItem.createdAt);
-      message += `${createdAt.toDateString()} - ${Poggie.Url.replace(Poggie.UrlToken, historyItem.twitchEmoteId.toString())} \n`;
+    for (const emote of emotes) {
+      const createdAt = new Date(emote.createdAt * 1000);
+
+      message += `${createdAt.toDateString()} - ${Poggie.Url.replace(Poggie.UrlToken, emote.twitchEmoteId.toString())} \n`;
     }
 
     return new Discord.MessageEmbed().setTitle('Previous PogChamps').setDescription(message);

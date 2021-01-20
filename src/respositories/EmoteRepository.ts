@@ -28,9 +28,9 @@ class EmoteRepository {
   /**
    * Gets the latest pog champ
    */
-  public async getLatestPogChamp(): Promise<Emote | undefined> {
+  public async getLatestPogChamp(): Promise<Emote | undefined | null> {
     if (this._repo === null) {
-      return undefined;
+      return null;
     }
 
     const latestEmote = await this._repo.createQueryBuilder().take(1).orderBy('emote.createdAt', 'DESC').getOne();

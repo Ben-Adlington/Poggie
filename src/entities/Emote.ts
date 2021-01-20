@@ -8,6 +8,6 @@ export class Emote {
   @Column({ name: 'TwitchEmoteId', type: 'integer' })
   twitchEmoteId!: number;
 
-  @Column({ name: 'CreatedAt', type: 'bigint' })
+  @Column({ name: 'CreatedAt', type: 'integer' })
   createdAt!: number;
 }
