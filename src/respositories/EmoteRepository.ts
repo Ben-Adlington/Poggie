@@ -1,7 +1,7 @@
 import { createConnection, Repository } from 'typeorm';
 import { Emote } from '../entities/Emote';
 
-class EmoteRespository {
+class EmoteRepository {
   private _repo: Repository<Emote> | null = null;
 
   constructor() {
@@ -56,4 +56,4 @@ class EmoteRespository {
   }
 }
 
-export default new EmoteRespository();
+export default new EmoteRepository();

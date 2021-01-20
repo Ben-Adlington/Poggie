@@ -1,6 +1,5 @@
 import Discord, { Channel, MessageEmbed, MessageOptions, TextChannel } from 'discord.js';
 import TwitchService, { EmoteHistoryItem, TwitchEmoteNames } from './services/TwitchService';
-import EmoteRespository from './respositories/EmoteRepository';
 import EmoteRepository from './respositories/EmoteRepository';
 
 class Poggie {
@@ -113,7 +112,7 @@ class Poggie {
    * Gets pogchamp as a formatted message
    */
   private getPogChamps = async (): Promise<Discord.MessageEmbed> => {
-    const history = await EmoteRespository.getPogChamps();
+    const history = await EmoteRepository.getPogChamps();
 
     let message = '';
 
