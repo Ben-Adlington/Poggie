@@ -47,10 +47,11 @@ class EmoteRepository {
     }
 
     try {
-      await this._repo.insert({ twitchEmoteId, createdAt: new Date().getTime() });
+      await this._repo.insert({ twitchEmoteId, createdAt: new Date().getTime() / 1000 });
 
       return true;
-    } catch {
+    } catch (e) {
+      console.log(e);
       return false;
     }
   }

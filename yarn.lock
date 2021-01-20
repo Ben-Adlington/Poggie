@@ -54,26 +54,6 @@
   resolved "https://registry.yarnpkg.com/@sqltools/formatter/-/formatter-1.2.2.tgz#9390a8127c0dcba61ebd7fdcc748655e191bdd68"
   integrity sha512-/5O7Fq6Vnv8L6ucmPjaWbVG1XkP4FO+w5glqfkIsq3Xw4oyNAdJddbnYodNDAfjVUvo/rrSCTom4kAND7T1o5Q==
 
-"@ts-nameof/common@^4.2.0":
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/@ts-nameof/common/-/common-4.2.1.tgz#76e6ab5b4a11c92b2a2a79bf133ae49b57d7efc3"
-  integrity sha512-bWwYOFTTd6Nq7RUqJalIii1su3OyR+N1W0smp5PzHGUVycHuJ7MRiyCQrWgMt1lbbp3GY6cvCttm7Zo5E7A1xQ==
-
-"@ts-nameof/transforms-common@^4.2.1":
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/@ts-nameof/transforms-common/-/transforms-common-4.2.1.tgz#a38c18ef62f921ffcea7b4a9a693cb63301e23d3"
-  integrity sha512-mg6nkkHqNlKU1B15pEtiikSKadJSOxFFWpi7tEVB7Yhjx0PhoTcSe7oxK0fXHZGeoTGF2SMZjmCsGnbtfcgk6w==
-  dependencies:
-    "@ts-nameof/common" "^4.2.0"
-
-"@ts-nameof/transforms-ts@^4.2.1":
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/@ts-nameof/transforms-ts/-/transforms-ts-4.2.1.tgz#a37921017694b75a3bc17fa6519408ee32298efd"
-  integrity sha512-/zI2+DEQ1wvM0UQY5znG4efGbNSyBp+h4pzQZssGcst1748Np92RCWUnGfyV1qDlpIVma4S8Rx5HgkoDLPfMMg==
-  dependencies:
-    "@ts-nameof/common" "^4.2.0"
-    "@ts-nameof/transforms-common" "^4.2.1"
-
 "@types/node@*", "@types/node@^14.14.21":
   version "14.14.21"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.21.tgz#d934aacc22424fe9622ebf6857370c052eae464e"
@@ -106,11 +86,6 @@
   version "0.0.30"
   resolved "https://registry.yarnpkg.com/@types/strip-json-comments/-/strip-json-comments-0.0.30.tgz#9aa30c04db212a9a0649d6ae6fd50accc40748a1"
   integrity sha512-7NQmHra/JILCd1QqpSzl8+mJRc8ZHz3uDm8YV1Ks9IhK0epEiTw8aIErbvH9PI+6XbqhyIQy3462nEsn7UVzjQ==
-
-"@types/ts-nameof@^4.2.1":
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/@types/ts-nameof/-/ts-nameof-4.2.1.tgz#21bd84748601f3a220812152dc9bae7dc3051fa0"
-  integrity sha512-NgMmD70b8NwX6BYhKh70xWkquAow6iq3kRAPp4sMAk4Mre9PrqZgvpq5+JbDLWIJPc4Q9ctkwSQjVAOlfuvlyQ==
 
 "@types/tunnel@0.0.0":
   version "0.0.0"
@@ -1787,15 +1762,6 @@ ts-custom-error@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/ts-custom-error/-/ts-custom-error-3.2.0.tgz#ff8f80a3812bab9dc448536312da52dce1b720fb"
   integrity sha512-cBvC2QjtvJ9JfWLvstVnI45Y46Y5dMxIaG1TDMGAD/R87hpvqFL+7LhvUDhnRCfOnx/xitollFWWvUKKKhbN0A==
-
-ts-nameof@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/ts-nameof/-/ts-nameof-5.0.0.tgz#9ef33e9eeb4e0bf405073be35cf91ddf8952ac62"
-  integrity sha512-KKebM+HvZdtiFLVUtkvTmlJNzmMPMMwzw7yCcTCA5XRmwDupX/JuPEfnXYpu/Bfb8d+voF1ih2fdizqgKSIO+g==
-  dependencies:
-    "@ts-nameof/common" "^4.2.0"
-    "@ts-nameof/transforms-ts" "^4.2.1"
-    glob "^7.1.6"
 
 ts-node-dev@^1.1.1:
   version "1.1.1"

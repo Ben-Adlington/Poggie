@@ -52,14 +52,14 @@ class Poggie {
           process.env.NODE_ENV === 'production' ? this.reminderChannelId : this.testChannelId
         )) as TextChannel;
 
+        // Add the new pogchamp into the DB
+        await EmoteRepository.insert(latestPogChampId);
+
         // Get the pogchamp message
         const message = await this.getPogChamp('⛑🔥 New PogChamp Alert 🔥⛑');
 
         // Send it in discord channel
         channel.send(message);
-
-        // Add the new pogchamp into the DB
-        EmoteRepository.insert(latestPogChampId);
       }
     }, 10000);
   };
