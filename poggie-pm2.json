@@ -1,0 +1,10 @@
+{
+  "apps": [
+    {
+      "name": "Poggie",
+      "script": "npm",
+      "args": "run start",
+      "watch": true
+    }
+  ]
+}
